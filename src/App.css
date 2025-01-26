@@ -33,6 +33,17 @@
   font-size: 1.2rem;
   color: #1f1f1f;
   user-select: none;
+  box-sizing: border-box;
+  border: 0px solid #000;
+}
+
+.puzzle-cell.selected:not(.fixed-piece) {
+  border-color: blue;
+}
+
+.puzzle-cell.fixed-piece {
+  background-color: #444;
+  border-color: #444;
 }
 
 .flex-1 {
@@ -55,6 +66,12 @@
   align-items: flex-start;
 }
 
+.piece {
+  cursor: pointer;
+}
+.piece.selected {
+  outline: 2px solid blue;
+}
 .piece-cord-unit {
   width: 80px;
   height: 80px;
@@ -73,4 +90,20 @@
 
 .cell-placed {
   background-color: rgba(111, 222, 228, 0.2);
+}
+
+.border-t {
+  border-top-width: 2px;
+}
+
+.border-b {
+  border-bottom-width: 2px;
+}
+
+.border-l {
+  border-left-width: 2px;
+}
+
+.border-r {
+  border-right-width: 2px;
 }

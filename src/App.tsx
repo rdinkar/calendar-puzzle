@@ -3,12 +3,11 @@ import "./App.css";
 import { Board } from "./Board";
 import { PiecesContainer } from "./pieces-container";
 import { BoardPlacedPieces } from "./types";
-import { board } from "./data";
+import { getInitialBoard } from "./utils";
 
 function App() {
-  const [placedPieces, setPlacedPieces] = useState<BoardPlacedPieces>(
-    board.map((row) => row.map(() => null))
-  );
+  const [placedPieces, setPlacedPieces] =
+    useState<BoardPlacedPieces>(getInitialBoard);
   const placedPiecesId = useMemo(() => {
     const res: {
       [key: string]: boolean;

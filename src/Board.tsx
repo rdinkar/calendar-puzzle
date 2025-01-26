@@ -1,6 +1,12 @@
-import { board } from "./data";
-import { useState } from "react";
-import { getNewBoard, getValidCords, isNewBoardValid } from "./utils";
+import { board, fixedPiece } from "./data";
+import { useEffect, useState } from "react";
+import {
+  getBorderClasses,
+  getNewBoard,
+  getValidCords,
+  isNewBoardValid,
+  removePieceFromBoard,
+} from "./utils";
 import { CELL_SIZE } from "./constant";
 import { BoardPlacedPieces, HoveredPiece } from "./types";
 
@@ -12,6 +18,7 @@ export const Board = ({
   setPlacedPieces: React.Dispatch<React.SetStateAction<BoardPlacedPieces>>;
 }) => {
   const [hoverPiece, setHoverPiece] = useState<HoveredPiece | null>(null);
+  const [selectedPiece, setSelectedPiece] = useState<string | null>(null);
 
   const isHighlighted = (row: number, col: number) => {
     if (!hoverPiece || !hoverPiece.pieceCords.length) return false;
@@ -27,6 +34,21 @@ export const Board = ({
       hoverPiece.pieceCords[pieceRow][pieceCol] === 1
     );
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!selectedPiece) return;
+
+      if (e.key === "Backspace" || e.key === "Delete") {
+        setSelectedPiece(null);
+        setPlacedPieces((prev) => removePieceFromBoard(prev, selectedPiece));
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedPiece]);
 
   return (
     <div className="puzzle-board-boundary">
@@ -71,8 +93,12 @@ export const Board = ({
         onDragLeave={(e) => {
           // Only trigger if actually leaving the container
           if (!e.currentTarget.contains(e.relatedTarget as Node)) {
-            console.log("drag leave");
             setHoverPiece(null);
+          }
+        }}
+        onMouseDown={(e) => {
+          if (!e.currentTarget.contains(e.target as Node)) {
+            setSelectedPiece(null);
           }
         }}
       >
@@ -82,8 +108,19 @@ export const Board = ({
               <div
                 key={`${i}_${j}`}
                 className={`puzzle-cell ${
-                  isHighlighted(i, j) ? "highlight-hover" : ""
-                } ${placedPieces[i][j] ? "cell-placed" : ""}`}
+                  placedPieces[i][j]?.pieceId === fixedPiece.id
+                    ? "fixed-piece"
+                    : ""
+                } ${isHighlighted(i, j) ? "highlight-hover" : ""} ${
+                  placedPieces[i][j] ? "cell-placed" : ""
+                } ${getBorderClasses(placedPieces, [i, j])} ${
+                  placedPieces[i][j]?.pieceId === selectedPiece
+                    ? "selected"
+                    : ""
+                }`}
+                onClick={() => {
+                  setSelectedPiece(placedPieces[i][j]?.pieceId || null);
+                }}
               >
                 {cell.display}
               </div>

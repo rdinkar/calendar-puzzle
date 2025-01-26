@@ -227,6 +227,11 @@ export const pieces = {
   ],
 };
 
+export const fixedPiece = {
+  id: "z",
+  cords: [[1]],
+};
+
 export const flipCords = (cords: number[][]) => {
   return cords.map((row) => [...row].reverse());
 };

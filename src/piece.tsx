@@ -39,13 +39,9 @@ export const Piece = ({
 
   return (
     <div
-      className={`flex-col ${isSelected ? "selected" : ""}`}
+      className={`piece ${isSelected ? "selected" : ""}`}
       onClick={onClick}
       draggable={true}
-      style={{
-        cursor: "pointer",
-        outline: isSelected ? "2px solid blue" : "none",
-      }}
       onDragStart={(e) => {
         const rect = e.currentTarget.getBoundingClientRect();
 
