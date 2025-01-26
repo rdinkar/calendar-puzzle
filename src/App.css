@@ -9,17 +9,18 @@
   gap: 50px;
 }
 
+.puzzle-board-boundary {
+  padding: 30px;
+  background-color: #444;
+}
+
 .puzzle-container {
   display: flex;
   flex-direction: column;
-  background-color: #444;
-  gap: 1px;
-  padding: 30px;
 }
 
 .puzzle-row {
   display: flex;
-  gap: 1px;
 }
 
 .puzzle-cell {
@@ -51,6 +52,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  align-items: flex-start;
 }
 
 .piece-cord-unit {
@@ -63,4 +65,8 @@
 }
 .piece-cord-unit.solid {
   background-color: #5d5d5d;
+}
+
+.highlight-hover {
+  background-color: rgba(0, 255, 0, 0.2);
 }

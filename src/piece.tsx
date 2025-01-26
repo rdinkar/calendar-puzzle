@@ -37,7 +37,7 @@ export const Piece = ({
 
   return (
     <div
-      className={`disp-flex ${isSelected ? "selected" : ""}`}
+      className={`flex-col ${isSelected ? "selected" : ""}`}
       onClick={onClick}
       draggable={true}
       style={{
@@ -45,11 +45,26 @@ export const Piece = ({
         outline: isSelected ? "2px solid blue" : "none",
       }}
       onDragStart={(e) => {
-        console.log("drag start", e);
+        const rect = e.currentTarget.getBoundingClientRect();
+
+        const pieceData = {
+          pieceCords: cords_2,
+          isFlipped,
+          rotation,
+          relativePosition: {
+            left: rect.left - e.clientX,
+            top: rect.top - e.clientY,
+          },
+        };
+        window.dragPieceData = pieceData;
+        e.dataTransfer.setData("application/json", JSON.stringify(pieceData));
+      }}
+      onDragEnd={() => {
+        delete window.dragPieceData;
       }}
     >
       {cords_2.map((row, i) => (
-        <div key={i} className="flex-col">
+        <div key={i} className="disp-flex">
           {row.map((cell, j) => (
             <div
               key={`${i}_${j}`}
