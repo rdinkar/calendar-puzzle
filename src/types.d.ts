@@ -8,8 +8,21 @@ declare global {
         left: number;
         top: number;
       };
+      id: string;
     };
   }
 }
+
+type PlacedPiece = {
+  pieceId: string;
+};
+
+export type HoveredPiece = {
+  pieceCords: number[][];
+  position: { row: number; col: number };
+  id: string;
+};
+
+export type BoardPlacedPieces = (PlacedPiece | null)[][];
 
 export {};

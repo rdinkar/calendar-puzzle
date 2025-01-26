@@ -1,16 +1,20 @@
 import { board } from "./data";
 import { useState } from "react";
-import { getValidCords } from "./utils";
+import { getNewBoard, getValidCords, isNewBoardValid } from "./utils";
 import { CELL_SIZE } from "./constant";
+import { BoardPlacedPieces, HoveredPiece } from "./types";
 
-export const Board = () => {
-  const [hoverPiece, setHoverPiece] = useState<{
-    pieceCords: number[][];
-    position: { row: number; col: number } | null;
-  }>({ pieceCords: [], position: null });
+export const Board = ({
+  placedPieces,
+  setPlacedPieces,
+}: {
+  placedPieces: BoardPlacedPieces;
+  setPlacedPieces: React.Dispatch<React.SetStateAction<BoardPlacedPieces>>;
+}) => {
+  const [hoverPiece, setHoverPiece] = useState<HoveredPiece | null>(null);
 
   const isHighlighted = (row: number, col: number) => {
-    if (!hoverPiece.position || !hoverPiece.pieceCords.length) return false;
+    if (!hoverPiece || !hoverPiece.pieceCords.length) return false;
 
     const pieceRow = row - hoverPiece.position.row;
     const pieceCol = col - hoverPiece.position.col;
@@ -30,11 +34,12 @@ export const Board = () => {
         className="puzzle-container"
         onDrop={(e) => {
           e.preventDefault();
-          const pieceData = JSON.parse(
-            e.dataTransfer.getData("application/json")
-          );
-          console.log("Dropped piece:", pieceData, hoverPiece.position);
-          setHoverPiece({ pieceCords: [], position: null });
+          setPlacedPieces((prev) => {
+            if (!hoverPiece) return prev;
+            const newBoard = getNewBoard(prev, hoverPiece);
+            return newBoard;
+          });
+          setHoverPiece(null);
         }}
         onDragOver={(e) => {
           e.preventDefault();
@@ -49,14 +54,26 @@ export const Board = () => {
             const relativeRow = Math.floor(mouseY / CELL_SIZE);
             const relativeCol = Math.floor(mouseX / CELL_SIZE);
 
-            setHoverPiece({
+            const newHoverPieceData = {
               pieceCords: dragPieceData.pieceCords,
-              position: getValidCords(relativeCol, relativeRow),
-            });
+              position: getValidCords(
+                relativeCol,
+                relativeRow,
+                dragPieceData.pieceCords
+              ),
+              id: dragPieceData.id,
+            };
+            if (isNewBoardValid(placedPieces, newHoverPieceData)) {
+              setHoverPiece(newHoverPieceData);
+            }
           }
         }}
-        onDragLeave={() => {
-          setHoverPiece({ pieceCords: [], position: null });
+        onDragLeave={(e) => {
+          // Only trigger if actually leaving the container
+          if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+            console.log("drag leave");
+            setHoverPiece(null);
+          }
         }}
       >
         {board.map((row, i) => (
@@ -66,7 +83,7 @@ export const Board = () => {
                 key={`${i}_${j}`}
                 className={`puzzle-cell ${
                   isHighlighted(i, j) ? "highlight-hover" : ""
-                }`}
+                } ${placedPieces[i][j] ? "cell-placed" : ""}`}
               >
                 {cell.display}
               </div>

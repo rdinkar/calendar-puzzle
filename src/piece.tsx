@@ -6,10 +6,12 @@ export const Piece = ({
   pieceCords,
   isSelected,
   onClick,
+  id,
 }: {
   pieceCords: number[][];
   isSelected: boolean;
   onClick: () => void;
+  id: string;
 }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [rotation, setRotation] = useState(0);
@@ -55,6 +57,7 @@ export const Piece = ({
             left: rect.left - e.clientX,
             top: rect.top - e.clientY,
           },
+          id,
         };
         window.dragPieceData = pieceData;
         e.dataTransfer.setData("application/json", JSON.stringify(pieceData));

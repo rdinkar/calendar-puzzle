@@ -70,3 +70,7 @@
 .highlight-hover {
   background-color: rgba(0, 255, 0, 0.2);
 }
+
+.cell-placed {
+  background-color: rgba(111, 222, 228, 0.2);
+}
