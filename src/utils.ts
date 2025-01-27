@@ -1,5 +1,5 @@
 import { COLS, ROWS } from "./constant";
-import { board, fixedPiece } from "./data";
+import { board, fixedPiece, restrictedPiece } from "./data";
 import { BoardPlacedPieces, HoveredPiece } from "./types";
 
 export const getValidCords = (x: number, y: number, pieceCords: number[][]) => {
@@ -28,6 +28,10 @@ export const isNewBoardValid = (
     });
   });
   return !isError;
+};
+
+export const isBoardComplete = (board: BoardPlacedPieces) => {
+  return board.every((row) => row.every((col) => col !== null));
 };
 
 export const getNewBoard = (
@@ -63,8 +67,27 @@ export const removePieceFromBoard = (
   return newBoard;
 };
 
-export const getInitialBoard = (): BoardPlacedPieces => {
-  const newBoard: BoardPlacedPieces = board.map((row) => row.map(() => null));
+const getDateComparableValues = (restrictedDate: string) => {
+  const date = new Date(restrictedDate);
+  const month = date.toLocaleString("en-US", { month: "short" }).toUpperCase();
+  const day = date.getDate().toString();
+  const weekday = date
+    .toLocaleString("en-US", { weekday: "short" })
+    .toUpperCase();
+  return [month, day, weekday];
+};
+
+export const getInitialBoard = (restrictedDate: string): BoardPlacedPieces => {
+  const comparableValues = getDateComparableValues(restrictedDate);
+  const newBoard: BoardPlacedPieces = board.map((row) =>
+    row.map((colValue) =>
+      comparableValues.includes(colValue?.display)
+        ? {
+            pieceId: restrictedPiece.id,
+          }
+        : null
+    )
+  );
   newBoard[board.length - 1][board[0].length - 1] = {
     pieceId: fixedPiece.id,
   };

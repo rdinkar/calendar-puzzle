@@ -1,4 +1,4 @@
-import { board, fixedPiece } from "./data";
+import { board, fixedPiece, restrictedPiece } from "./data";
 import { useEffect, useState } from "react";
 import {
   getBorderClasses,
@@ -110,6 +110,10 @@ export const Board = ({
                 className={`puzzle-cell ${
                   placedPieces[i][j]?.pieceId === fixedPiece.id
                     ? "fixed-piece"
+                    : ""
+                } ${
+                  placedPieces[i][j]?.pieceId === restrictedPiece.id
+                    ? "restricted-piece"
                     : ""
                 } ${isHighlighted(i, j) ? "highlight-hover" : ""} ${
                   placedPieces[i][j] ? "cell-placed" : ""

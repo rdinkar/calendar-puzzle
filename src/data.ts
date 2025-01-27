@@ -232,6 +232,11 @@ export const fixedPiece = {
   cords: [[1]],
 };
 
+export const restrictedPiece = {
+  id: "x",
+  cords: [[1]],
+};
+
 export const flipCords = (cords: number[][]) => {
   return cords.map((row) => [...row].reverse());
 };
