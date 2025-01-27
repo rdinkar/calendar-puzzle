@@ -43,7 +43,7 @@ export const Instructions = () => {
             </div>
 
             <div className="instruction-section">
-              <h3>Piece Controls</h3>
+              <h3>Piece Controls (after selecting a piece)</h3>
               <ul>
                 <li>
                   <kbd>R</kbd> - Rotate piece clockwise
