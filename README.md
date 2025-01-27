@@ -1,50 +1,34 @@
-# React + TypeScript + Vite
+# Puzzle Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based puzzle game where players can drag and drop pieces onto a board to solve puzzles.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🎮 [Play the game here](https://rdinkar.github.io/calendar-puzzle)
 
-## Expanding the ESLint configuration
+## Overview
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+This puzzle game offers a unique daily challenge based on the current date. Players are presented with a board that displays today's date, month, and day of the week. The goal is to strategically place all puzzle pieces on the board while avoiding these restricted cells. For example, if today is "MON 25 DEC", those cells cannot be covered by any pieces. Players can also choose a different date to solve puzzles from the past or future, making it an evergreen challenge with 365 different possibilities throughout the year. The game combines spatial reasoning with calendar awareness for an engaging and mentally stimulating experience.
 
-- Configure the top-level `parserOptions` property like this:
+## Features
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- 🎯 Drag and drop interface for piece placement
+- 🎨 Visual feedback for valid/invalid placements
+- 🔄 Interactive board with piece highlighting
+- 🎮 Real-time validation of piece placement
+- 🖼️ Visual borders to distinguish placed pieces
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Technology Stack
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- **Frontend Framework**: React 18
+- **Language**: TypeScript
+- **Build Tool**: Vite
+- **Styling**: CSS/Tailwind CSS
+- **Development Tools**:
+  - ESLint for code linting
+  - Prettier for code formatting
+  - TypeScript for type safety
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## License
+
+MIT License - feel free to use this code for your own projects!
