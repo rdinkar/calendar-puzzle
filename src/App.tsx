@@ -1,15 +1,15 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import { Board } from "./Board";
 import { PiecesContainer } from "./pieces-container";
 import { BoardPlacedPieces } from "./types";
-import { getInitialBoard } from "./utils";
+import { getInitialBoard, isBoardComplete } from "./utils";
 
 function App() {
   const today = new Date();
   const formattedDate = today.toISOString().split("T")[0];
   const [puzzleDate, setPuzzleDate] = useState<string>(formattedDate);
-
+  const [isUserWon, setIsUserWon] = useState<boolean>(false);
   const [placedPieces, setPlacedPieces] = useState<BoardPlacedPieces>(() =>
     getInitialBoard(puzzleDate)
   );
@@ -33,6 +33,10 @@ function App() {
     setPlacedPieces(getInitialBoard(e.target.value));
   };
 
+  useEffect(() => {
+    setIsUserWon(isBoardComplete(placedPieces));
+  }, [placedPieces]);
+
   return (
     <div className="app-container">
       <div className="flex-col gap-2">
@@ -48,7 +52,14 @@ function App() {
         </div>
         <Board placedPieces={placedPieces} setPlacedPieces={setPlacedPieces} />
       </div>
-      <PiecesContainer placedPiecesId={placedPiecesId} />
+      {isUserWon ? (
+        <div className="flex-col celebration-container">
+          <h2>Congratulations!</h2>
+          <p>You've completed the puzzle!</p>
+        </div>
+      ) : (
+        <PiecesContainer placedPiecesId={placedPiecesId} />
+      )}
     </div>
   );
 }
