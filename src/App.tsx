@@ -4,6 +4,7 @@ import { Board } from "./Board";
 import { PiecesContainer } from "./pieces-container";
 import { BoardPlacedPieces } from "./types";
 import { getInitialBoard, isBoardComplete } from "./utils";
+import { Instructions } from "./components/Instructions";
 
 function App() {
   const today = new Date();
@@ -39,8 +40,9 @@ function App() {
 
   return (
     <div className="app-container">
-      <div className="flex-col gap-2">
-        <div className="flex-col gap-1">
+      <Instructions />
+      <div className="flex-col gap-2 relative">
+        <div className="flex-col gap-1 mb-4">
           <label htmlFor="puzzle-date">Puzzle for date</label>
           <input
             id="puzzle-date"
