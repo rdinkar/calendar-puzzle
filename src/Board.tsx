@@ -1,4 +1,4 @@
-import { board, fixedPiece, restrictedPiece } from "./data";
+import { board, restrictedPiece } from "./data";
 import { useEffect, useState } from "react";
 import {
   getBorderClasses,
@@ -108,10 +108,6 @@ export const Board = ({
               <div
                 key={`${i}_${j}`}
                 className={`puzzle-cell ${
-                  placedPieces[i][j]?.pieceId === fixedPiece.id
-                    ? "fixed-piece"
-                    : ""
-                } ${
                   placedPieces[i][j]?.pieceId === restrictedPiece.id
                     ? "restricted-piece"
                     : ""
@@ -123,6 +119,8 @@ export const Board = ({
                     : ""
                 }`}
                 onClick={() => {
+                  if (placedPieces[i][j]?.pieceId === restrictedPiece.id)
+                    return;
                   setSelectedPiece(placedPieces[i][j]?.pieceId || null);
                 }}
               >

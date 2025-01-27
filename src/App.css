@@ -1,73 +1,234 @@
+:root {
+  --primary-color: #2563eb;
+  --border-color: #e2e8f0;
+  --text-color: #1e293b;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  --success-color: #22c55e;
+  --hover-color: #dbeafe;
+  --piece-color: #475569;
+  --restricted-piece-color: #7d6d6d;
+  --piece-placed-color: #8fa4b9;
+  --piece-border-color: #212121;
+  --cell-size: 46px;
+}
+
+body {
+  background: #f1f5f9;
+  min-height: 100vh;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
 #root {
-  padding: 50px;
+  padding: 2rem;
 }
 
 .app-container {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 50px;
-}
-
-.puzzle-board-boundary {
-  padding: 30px;
-  background-color: #444;
-}
-
-.gap-2 {
   gap: 20px;
 }
 
-.gap-1 {
-  gap: 10px;
-}
-
-.p-1 {
-  padding: 10px;
+/* Board Styles */
+.puzzle-board-boundary {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px var(--shadow-color);
 }
 
 .puzzle-container {
-  display: flex;
-  flex-direction: column;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
 }
 
 .puzzle-row {
   display: flex;
 }
 
-.celebration-container {
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  align-self: center;
-}
-
 .puzzle-cell {
-  width: 80px;
-  height: 80px;
-  background-color: #f0f0f0;
+  width: 44px;
+  height: 44px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 1.2rem;
-  color: #1f1f1f;
-  user-select: none;
+  justify-content: center;
+  border: 0px solid var(--piece-border-color);
+  font-size: 1rem;
+  transition: all 0.15s ease;
   box-sizing: border-box;
-  border: 0px solid #000;
 }
 
-.puzzle-cell.selected:not(.fixed-piece):not(.restricted-piece) {
-  border-color: blue;
+.puzzle-cell.selected:not(.restricted-piece) {
+  border-color: var(--primary-color);
 }
 
 .puzzle-cell.restricted-piece {
-  background-color: #5f4b4b;
-  border-color: #5f4b4b;
+  background-color: var(--restricted-piece-color);
+  border-color: var(--restricted-piece-color);
 }
 
-.puzzle-cell.fixed-piece {
-  background-color: #444;
-  border-color: #444;
+.highlight-hover {
+  background-color: var(--hover-color);
+}
+
+.cell-placed {
+  background-color: var(--piece-placed-color);
+}
+
+/* Pieces Container */
+.pieces-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px var(--shadow-color);
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.piece {
+  cursor: grab;
+  transition: transform 0.15s ease;
+}
+
+.piece.selected {
+  outline: 1px solid var(--primary-color);
+}
+
+.piece:hover {
+  transform: scale(1.02);
+}
+
+.piece-cord-unit {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.piece-cord-unit.solid {
+  background-color: var(--piece-color);
+}
+
+/* Date Input */
+.date-input-container {
+  margin-bottom: 1.5rem;
+}
+
+.date-input-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--text-color);
+}
+
+input[type="date"] {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+/* Instructions */
+.instructions-modal {
+  background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.instructions-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  max-width: 32rem;
+  margin: 2rem;
+  position: relative;
+}
+
+.instructions-content .close-button {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+}
+
+.instructions-content h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+}
+
+.instruction-section {
+  margin: 1.5rem 0;
+}
+
+.instruction-section h3 {
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.instruction-section ul {
+  font-size: 0.875rem;
+}
+
+.instruction-section li {
+  margin: 0.75rem 0;
+}
+
+/* Info Button */
+.info-button {
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  transition: all 0.15s ease;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/* Celebration */
+.celebration-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  box-shadow: 0 1px 3px var(--shadow-color);
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.celebration-container h2 {
+  color: var(--success-color);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Utility Classes */
+.gap-2 {
+  gap: 1.25rem;
+}
+
+.gap-1 {
+  gap: 0.75rem;
+}
+
+.p-1 {
+  padding: 0.75rem;
 }
 
 .flex-1 {
@@ -81,39 +242,6 @@
 .flex-col {
   display: flex;
   flex-direction: column;
-}
-
-.pieces-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: flex-start;
-}
-
-.piece {
-  cursor: pointer;
-}
-.piece.selected {
-  outline: 2px solid blue;
-}
-.piece-cord-unit {
-  width: 80px;
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-}
-.piece-cord-unit.solid {
-  background-color: #5d5d5d;
-}
-
-.highlight-hover {
-  background-color: rgba(0, 255, 0, 0.2);
-}
-
-.cell-placed {
-  background-color: rgba(111, 222, 228, 0.2);
 }
 
 .border-t {
@@ -130,90 +258,4 @@
 
 .border-r {
   border-right-width: 2px;
-}
-
-.info-button {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 50%;
-  transition: transform 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.info-button:hover {
-  transform: scale(1.1);
-}
-
-.instructions-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.instructions-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  max-width: 500px;
-  width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.close-button {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0.5rem;
-}
-
-.instruction-section {
-  margin: 1.5rem 0;
-}
-
-.instruction-section h3 {
-  margin-bottom: 0.5rem;
-  color: #333;
-}
-
-.instruction-section ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.instruction-section li {
-  margin: 0.5rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-kbd {
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 3px;
-  padding: 2px 6px;
-  font-size: 0.9em;
-  font-family: monospace;
 }

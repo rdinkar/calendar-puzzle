@@ -227,11 +227,6 @@ export const pieces = {
   ],
 };
 
-export const fixedPiece = {
-  id: "z",
-  cords: [[1]],
-};
-
 export const restrictedPiece = {
   id: "x",
   cords: [[1]],

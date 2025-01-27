@@ -1,5 +1,5 @@
 import { COLS, ROWS } from "./constant";
-import { board, fixedPiece, restrictedPiece } from "./data";
+import { board, restrictedPiece } from "./data";
 import { BoardPlacedPieces, HoveredPiece } from "./types";
 
 export const getValidCords = (x: number, y: number, pieceCords: number[][]) => {
@@ -89,7 +89,7 @@ export const getInitialBoard = (restrictedDate: string): BoardPlacedPieces => {
     )
   );
   newBoard[board.length - 1][board[0].length - 1] = {
-    pieceId: fixedPiece.id,
+    pieceId: restrictedPiece.id,
   };
   return newBoard;
 };
