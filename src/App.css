@@ -203,8 +203,8 @@ input[type="date"] {
   font-size: 1.25rem;
   transition: all 0.15s ease;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 15px;
+  right: 15px;
 }
 
 /* Celebration */
@@ -270,4 +270,10 @@ input[type="date"] {
 kbd {
   background: var(--kbd-background);
   border: 1px solid var(--border-color);
+}
+
+.watch-video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }

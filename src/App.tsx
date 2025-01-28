@@ -4,7 +4,8 @@ import { Board } from "./Board";
 import { PiecesContainer } from "./pieces-container";
 import { BoardPlacedPieces } from "./types";
 import { getInitialBoard, isBoardComplete } from "./utils";
-import { Instructions } from "./components/Instructions";
+import { Instructions } from "./components/instructions";
+import { PuzzleExplanation } from "./components/puzzle-explanation";
 
 function App() {
   const today = new Date();
@@ -53,6 +54,7 @@ function App() {
           />
         </div>
         <Board placedPieces={placedPieces} setPlacedPieces={setPlacedPieces} />
+        <PuzzleExplanation />
       </div>
       {isUserWon ? (
         <div className="flex-col celebration-container">
