@@ -1,4 +1,3 @@
-import React from "react";
 import { BoardPlacedPieces, HoveredPiece } from "../types";
 import { getCellClasses } from "../utils";
 
