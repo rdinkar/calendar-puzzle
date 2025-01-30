@@ -13,7 +13,7 @@
   --board-hover-color: #e0e7ff; /* Light indigo */
 
   --piece-color: #94a3b8; /* Light slate */
-  --restricted-piece-color: #64748b; /* Slate */
+  --restricted-cell-color: #64748b; /* Slate */
   --piece-border-color: #475569; /* Darker slate */
   --modal-overlay: rgba(51, 65, 85, 0.4);
   --kbd-background: #f1f5f9;
@@ -67,19 +67,19 @@ body {
   box-sizing: border-box;
 }
 
-.puzzle-cell.selected:not(.fixed-piece):not(.restricted-piece) {
+.puzzle-cell.selected-cell:not(.fixed-piece):not(.restricted-cell) {
   border-color: var(--primary-color);
 }
 
-.puzzle-cell.restricted-piece {
-  background-color: var(--restricted-piece-color);
+.puzzle-cell.restricted-cell {
+  background-color: var(--restricted-cell-color);
 }
 
-.highlight-hover {
+.highlighted-cell {
   background-color: var(--board-hover-color);
 }
 
-.cell-placed {
+.placed-cell {
   background-color: var(--piece-color);
 }
 

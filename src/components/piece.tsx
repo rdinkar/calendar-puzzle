@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { rotateCords } from "./data";
-import { flipCords } from "./data";
+import { rotateCords, flipCords } from "../utils";
 
 export const Piece = ({
   pieceCords,

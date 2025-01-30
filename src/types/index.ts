@@ -24,5 +24,3 @@ export type HoveredPiece = {
 };
 
 export type BoardPlacedPieces = (PlacedPiece | null)[][];
-
-export {};

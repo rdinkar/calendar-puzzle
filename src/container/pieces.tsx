@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Piece } from "./piece";
-import { pieces } from "./data";
+import { Piece } from "../components";
+import { pieces } from "../constants";
 
 export const PiecesContainer = ({
   placedPiecesId,

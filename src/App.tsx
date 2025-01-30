@@ -1,11 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
-import { Board } from "./Board";
-import { PiecesContainer } from "./pieces-container";
+import { PiecesContainer } from "./container/pieces";
 import { BoardPlacedPieces } from "./types";
 import { getInitialBoard, isBoardComplete } from "./utils";
-import { Instructions } from "./components/instructions";
-import { PuzzleExplanation } from "./components/puzzle-explanation";
+import {
+  Instructions,
+  PuzzleExplanation,
+  Celebration,
+  DateInput,
+} from "./components";
+import { BoardContainer } from "./container";
 
 function App() {
   const today = new Date();
@@ -43,24 +47,18 @@ function App() {
     <div className="app-container">
       <Instructions />
       <div className="flex-col gap-2 relative">
-        <div className="flex-col gap-1 mb-4">
-          <label htmlFor="puzzle-date">Puzzle for date</label>
-          <input
-            id="puzzle-date"
-            type="date"
-            value={puzzleDate}
-            onChange={onPuzzleDateChange}
-            className="p-1"
-          />
-        </div>
-        <Board placedPieces={placedPieces} setPlacedPieces={setPlacedPieces} />
+        <DateInput
+          puzzleDate={puzzleDate}
+          onPuzzleDateChange={onPuzzleDateChange}
+        />
+        <BoardContainer
+          placedPieces={placedPieces}
+          setPlacedPieces={setPlacedPieces}
+        />
         <PuzzleExplanation />
       </div>
       {isUserWon ? (
-        <div className="flex-col celebration-container">
-          <h2>Congratulations!</h2>
-          <p>You've completed the puzzle!</p>
-        </div>
+        <Celebration />
       ) : (
         <PiecesContainer placedPiecesId={placedPiecesId} />
       )}

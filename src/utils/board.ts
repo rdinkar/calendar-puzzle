@@ -1,15 +1,5 @@
-import { COLS, ROWS } from "./constant";
-import { board, restrictedPiece } from "./data";
-import { BoardPlacedPieces, HoveredPiece } from "./types";
-
-export const getValidCords = (x: number, y: number, pieceCords: number[][]) => {
-  const pieceWidth = pieceCords[0].length;
-  const pieceHeight = pieceCords.length;
-  return {
-    row: Math.max(0, Math.min(ROWS - pieceHeight, y)),
-    col: Math.max(0, Math.min(COLS - pieceWidth, x)),
-  };
-};
+import { board, restrictedPiece } from "../constants";
+import { BoardPlacedPieces, HoveredPiece } from "../types";
 
 export const isNewBoardValid = (
   board: BoardPlacedPieces,
@@ -92,39 +82,4 @@ export const getInitialBoard = (restrictedDate: string): BoardPlacedPieces => {
     pieceId: restrictedPiece.id,
   };
   return newBoard;
-};
-
-export const getBorderClasses = (
-  placedPieces: BoardPlacedPieces,
-  [row, col]: [number, number]
-) => {
-  if (!placedPieces[row][col]) return "";
-
-  const currentId = placedPieces[row][col].pieceId;
-  const borders = [];
-
-  // Check top border
-  if (row === 0 || placedPieces[row - 1][col]?.pieceId !== currentId) {
-    borders.push("border-t");
-  }
-  // Check bottom border
-  if (
-    row === placedPieces.length - 1 ||
-    placedPieces[row + 1][col]?.pieceId !== currentId
-  ) {
-    borders.push("border-b");
-  }
-  // Check left border
-  if (col === 0 || placedPieces[row][col - 1]?.pieceId !== currentId) {
-    borders.push("border-l");
-  }
-  // Check right border
-  if (
-    col === placedPieces[row].length - 1 ||
-    placedPieces[row][col + 1]?.pieceId !== currentId
-  ) {
-    borders.push("border-r");
-  }
-
-  return borders.join(" ");
 };
