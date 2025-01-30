@@ -22,7 +22,7 @@ export const Instructions = () => {
       </button>
 
       {isOpen && (
-        <div className="instructions-modal">
+        <div className="instructions-modal" onClick={() => setIsOpen(false)}>
           <div className="instructions-content">
             <button
               className="close-button"
