@@ -28,14 +28,12 @@ export const getNewBoard = (
   board: BoardPlacedPieces,
   piece: HoveredPiece
 ): BoardPlacedPieces => {
-  const newBoard = JSON.parse(JSON.stringify(board));
+  const newBoard: typeof board = JSON.parse(JSON.stringify(board));
   const { position, pieceCords, id } = piece;
   pieceCords.forEach((row, rowIndex) => {
     row.forEach((col, colIndex) => {
       if (col === 1) {
-        newBoard[position.row + rowIndex][position.col + colIndex] = {
-          pieceId: id,
-        };
+        newBoard[position.row + rowIndex][position.col + colIndex] = id;
       }
     });
   });
@@ -49,7 +47,7 @@ export const removePieceFromBoard = (
   const newBoard: typeof board = JSON.parse(JSON.stringify(board));
   newBoard.forEach((row, rowIndex) => {
     row.forEach((col, colIndex) => {
-      if (col?.pieceId === pieceId) {
+      if (col === pieceId) {
         newBoard[rowIndex][colIndex] = null;
       }
     });
@@ -71,15 +69,9 @@ export const getInitialBoard = (restrictedDate: string): BoardPlacedPieces => {
   const comparableValues = getDateComparableValues(restrictedDate);
   const newBoard: BoardPlacedPieces = board.map((row) =>
     row.map((colValue) =>
-      comparableValues.includes(colValue?.display)
-        ? {
-            pieceId: restrictedPiece.id,
-          }
-        : null
+      comparableValues.includes(colValue) ? restrictedPiece.id : null
     )
   );
-  newBoard[board.length - 1][board[0].length - 1] = {
-    pieceId: restrictedPiece.id,
-  };
+  newBoard[board.length - 1][board[0].length - 1] = restrictedPiece.id;
   return newBoard;
 };

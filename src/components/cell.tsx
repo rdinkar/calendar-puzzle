@@ -9,7 +9,7 @@ export const Cell = ({
   hoverPiece,
   onClick,
 }: {
-  cell: { display: string };
+  cell: string;
   position: [number, number];
   placedPieces: BoardPlacedPieces;
   selectedPiece: string | null;
@@ -25,9 +25,9 @@ export const Cell = ({
         hoverPiece,
         position,
       })}
-      onClick={() => onClick(placedPieces[row][col]?.pieceId || null)}
+      onClick={() => onClick(placedPieces[row][col] || null)}
     >
-      {cell.display}
+      {cell}
     </div>
   );
 };

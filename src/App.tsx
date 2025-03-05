@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import "./App.css";
 import { PiecesContainer } from "./container/pieces";
 import { BoardPlacedPieces } from "./types";
@@ -15,7 +15,6 @@ function App() {
   const today = new Date();
   const formattedDate = today.toISOString().split("T")[0];
   const [puzzleDate, setPuzzleDate] = useState<string>(formattedDate);
-  const [isUserWon, setIsUserWon] = useState<boolean>(false);
   const [placedPieces, setPlacedPieces] = useState<BoardPlacedPieces>(() =>
     getInitialBoard(puzzleDate)
   );
@@ -26,8 +25,8 @@ function App() {
     } = {};
     for (const row of placedPieces) {
       for (const col of row) {
-        if (col?.pieceId) {
-          res[col.pieceId] = true;
+        if (col) {
+          res[col] = true;
         }
       }
     }
@@ -39,8 +38,8 @@ function App() {
     setPlacedPieces(getInitialBoard(e.target.value));
   };
 
-  useEffect(() => {
-    setIsUserWon(isBoardComplete(placedPieces));
+  const isUserWon = useMemo(() => {
+    return isBoardComplete(placedPieces);
   }, [placedPieces]);
 
   return (

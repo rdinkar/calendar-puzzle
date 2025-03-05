@@ -25,29 +25,29 @@ const getBorderClasses = (
 ) => {
   if (!placedPieces[row][col]) return "";
 
-  const currentId = placedPieces[row][col].pieceId;
+  const currentId = placedPieces[row][col];
   if (currentId === restrictedPiece.id) return "";
   const borders = [];
 
   // Check top border
-  if (row === 0 || placedPieces[row - 1][col]?.pieceId !== currentId) {
+  if (row === 0 || placedPieces[row - 1][col] !== currentId) {
     borders.push("border-t");
   }
   // Check bottom border
   if (
     row === placedPieces.length - 1 ||
-    placedPieces[row + 1][col]?.pieceId !== currentId
+    placedPieces[row + 1][col] !== currentId
   ) {
     borders.push("border-b");
   }
   // Check left border
-  if (col === 0 || placedPieces[row][col - 1]?.pieceId !== currentId) {
+  if (col === 0 || placedPieces[row][col - 1] !== currentId) {
     borders.push("border-l");
   }
   // Check right border
   if (
     col === placedPieces[row].length - 1 ||
-    placedPieces[row][col + 1]?.pieceId !== currentId
+    placedPieces[row][col + 1] !== currentId
   ) {
     borders.push("border-r");
   }
@@ -68,7 +68,7 @@ export const getCellClasses = ({
 }) => {
   const classes: string[] = ["puzzle-cell"];
   const [row, col] = position;
-  const currentId = placedPieces[row][col]?.pieceId;
+  const currentId = placedPieces[row][col];
 
   if (currentId === restrictedPiece.id) {
     classes.push("restricted-cell");

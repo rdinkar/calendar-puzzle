@@ -13,14 +13,10 @@ declare global {
   }
 }
 
-type PlacedPiece = {
-  pieceId: string;
-};
-
 export type HoveredPiece = {
   pieceCords: number[][];
   position: { row: number; col: number };
   id: string;
 };
 
-export type BoardPlacedPieces = (PlacedPiece | null)[][];
+export type BoardPlacedPieces = (string | null)[][];
