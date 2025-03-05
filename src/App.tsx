@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     const checkDevice = () => {
       setIsMobile(
-        !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
           navigator.userAgent
         )
       );
