@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import "./App.css";
 import { PiecesContainer } from "./container/pieces";
 import { BoardPlacedPieces } from "./types";
@@ -18,6 +18,21 @@ function App() {
   const [placedPieces, setPlacedPieces] = useState<BoardPlacedPieces>(() =>
     getInitialBoard(puzzleDate)
   );
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkDevice = () => {
+      setIsMobile(
+        !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      );
+    };
+
+    checkDevice();
+    window.addEventListener("resize", checkDevice);
+    return () => window.removeEventListener("resize", checkDevice);
+  }, []);
 
   const placedPiecesId = useMemo(() => {
     const res: {
@@ -44,7 +59,19 @@ function App() {
 
   return (
     <div className="app-container">
-      <Instructions />
+      {isMobile && (
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center text-white p-4">
+          <div className="text-center max-w-md">
+            <h2 className="text-2xl font-bold mb-3">Desktop Only Game</h2>
+            <p className="text-lg">
+              This puzzle requires precise piece placement and is designed for
+              mouse/keyboard interaction. Please switch to a computer for the
+              best experience.
+            </p>
+          </div>
+        </div>
+      )}
+      {!isMobile && <Instructions />}
       <div className="flex-col gap-2 relative">
         <DateInput
           puzzleDate={puzzleDate}
